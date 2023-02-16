@@ -11,6 +11,9 @@
   $error: color-palette.$red-900
 );
 
+// Typography
+@import '_Typography.scss';
+
 html,
 body {
   background-color: theme.$surface;
