@@ -54,9 +54,9 @@
   };
 </script>
 
-<h2>Private key</h2>
+<h2>Key</h2>
 <details>
-  <summary> Private key related operations </summary>
+  <summary> Private key related operations</summary>
   <Textfield
     type="text"
     label="Private key"
