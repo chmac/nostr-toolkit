@@ -1,9 +1,11 @@
 <script lang="ts">
   import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
-  // import IconButton from "@smui/icon-button";
+  import IconButton, { Icon } from "@smui/icon-button";
+  import { Svg } from "@smui/common";
   // import Menu from "@smui/menu";
   import { Anchor } from "@smui/menu-surface";
   import List, { Item, Separator, Text } from "@smui/list";
+  import { mdiGithub } from "@mdi/js";
 
   // let menu: Menu;
 </script>
@@ -31,6 +33,16 @@
         </List>
       </Menu> -->
       <Title>Nostr Toolkit</Title>
+    </Section>
+    <Section align="end">
+      <IconButton
+        href="https://github.com/chmac/nostr-toolkit/"
+        target="_blank"
+      >
+        <Icon component={Svg} viewBox="0 0 24 24"
+          ><path fill="currentColor" d={mdiGithub} /></Icon
+        >
+      </IconButton>
     </Section>
   </Row>
 </TopAppBar>
