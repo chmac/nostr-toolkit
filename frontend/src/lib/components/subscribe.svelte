@@ -1,7 +1,7 @@
 <script lang="ts">
   import Button from "@smui/button";
   import Textfield from "@smui/textfield";
-  import type { Event, Relay, Sub } from "nostr-tools";
+  import { nip19, type Event, type Relay, type Sub } from "nostr-tools";
   import { relayStore } from "../stores/relay";
 
   let relay: Relay;
@@ -56,10 +56,16 @@
     if (typeof relay === "undefined") {
       return;
     }
+    let subscribeToPublicKey = publicKey;
+
+    if (publicKey.startsWith("npub")) {
+      const { data } = nip19.decode(publicKey);
+      subscribeToPublicKey = data as string;
+    }
 
     const profileSubscription = relay.sub([
       {
-        authors: [publicKey],
+        authors: [subscribeToPublicKey],
         kinds: [0],
       },
     ]);
@@ -100,7 +106,10 @@
     >Subscribe to events of various kinds (connect to a relay first)</summary
   >
   <h3>Firehose</h3>
-  <p>Subscribe to all events from this relay (stops after 30s or 30 events)</p>
+  <p>
+    Subscribe to all events from this relay (stops after 30 seconds or 30
+    events)
+  </p>
   {#if !subscribed}
     <Button on:click={() => startFirehose()}>Start firehose</Button>
   {:else}
@@ -113,7 +122,11 @@
       subscribeToProfile();
     }}
   >
-    <Textfield bind:value={publicKey} style="width: 100%" />
+    <Textfield
+      bind:value={publicKey}
+      label="Enter a public key, prefix, or npub"
+      style="width: 100%"
+    />
     <Button>Subscribe to profile</Button>
   </form>
   {#if typeof profileEvent !== "undefined"}
