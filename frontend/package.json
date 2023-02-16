@@ -14,7 +14,11 @@
     "test:unit": "vitest",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "deploy:set-domain": "echo toolkit.nostring.stream > ./build/CNAME",
+    "deploy:set-nojekyll": "touch ./build/.nojekyll",
+    "deploy:publish": "gh-pages -t -d build",
+    "deploy": "yarn build && yarn deploy:set-domain && yarn deploy:set-nojekyll && yarn deploy:publish"
   },
   "devDependencies": {
     "@material/typography": "^14.0.0",
@@ -33,6 +37,7 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "patch-package": "^6.5.1",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.8.0",
