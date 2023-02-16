@@ -2,73 +2,68 @@
   import { generatePrivateKey, getPublicKey, nip19 } from "nostr-tools";
   import Button from "@smui/button";
   import Textfield from "@smui/textfield";
+  import HelperText from "@smui/textfield/helper-text";
 
-  const getPrivateKey = (privateKeyOrNsec: string): string => {
-    if (privateKeyOrNsec.startsWith("nsec")) {
+  import { privateKeyStore } from "$lib/stores/privateKey";
+
+  let privateKeyInputValue = "";
+  let privateKeyInputValueInvalid = false;
+  $: publicKey = $privateKeyStore === "" ? "" : getPublicKey($privateKeyStore);
+  $: nsec = $privateKeyStore === "" ? "" : nip19.nsecEncode($privateKeyStore);
+  $: npub = $privateKeyStore === "" ? "" : nip19.npubEncode($privateKeyStore);
+  let error = "";
+
+  const generateAndSetPrivateKey = () => {
+    $privateKeyStore = generatePrivateKey();
+  };
+
+  const importPrivateKey = () => {
+    privateKeyInputValueInvalid = false;
+    if (privateKeyInputValue.startsWith("nsec")) {
       try {
-        const { data } = nip19.decode(privateKeyOrNsec);
-        return data as string;
-      } catch {
-        return "";
-      }
+        const { data } = nip19.decode(privateKeyInputValue);
+        $privateKeyStore = data as string;
+        return;
+      } catch {}
     }
-    return privateKeyOrNsec;
-  };
-
-  const getPublicKeyOrEmpty = (privateKey: string): string => {
-    try {
-      return getPublicKey(privateKey);
-    } catch {
-      return "";
+    if (privateKeyInputValue.length === 64) {
+      $privateKeyStore = privateKeyInputValue;
+      return;
     }
-  };
-
-  const getNsecOrEmpty = (privateKey: string): string => {
-    try {
-      // NOTE: It seems `.nsecEncode()` returns a value for an empty private key
-      if (privateKey.length !== 64) {
-        return "";
-      }
-      return nip19.nsecEncode(privateKey);
-    } catch {
-      return "";
-    }
-  };
-
-  const getNpubOrEmpty = (privateKey: string): string => {
-    try {
-      return nip19.npubEncode(getPublicKey(privateKey));
-    } catch {
-      return "";
-    }
-  };
-
-  let privateKeyOrNsec: string = "";
-  $: privateKey = getPrivateKey(privateKeyOrNsec);
-  $: publicKey = getPublicKeyOrEmpty(privateKey);
-  $: nsec = getNsecOrEmpty(privateKey);
-  $: npub = getNpubOrEmpty(privateKey);
-
-  const generateAndFillKey = () => {
-    privateKey = generatePrivateKey();
+    privateKeyInputValueInvalid = true;
   };
 </script>
 
 <h2>Keys</h2>
 <details>
   <summary> Private key related operations</summary>
-  <Textfield
-    type="text"
-    label="Private key"
-    style="width: 100%"
-    bind:value={privateKey}
-  />
-  <Button on:click={() => generateAndFillKey()}>Generate key</Button>
+  <p>Private key: <code>{$privateKeyStore}</code></p>
   <p>
     Public key: <code>
       {publicKey}
     </code>
   </p>
+  <Button on:click={() => generateAndSetPrivateKey()}>Generate key</Button>
+
+  <details>
+    <summary>Import an existing private key</summary>
+    <Textfield
+      type="text"
+      label="Private key"
+      style="width: 100%"
+      bind:value={privateKeyInputValue}
+      invalid={privateKeyInputValueInvalid}
+    >
+      <HelperText validationMsg slot="helper">
+        Invalid private key, unable to import.
+      </HelperText>
+    </Textfield>
+    <Button on:click={() => importPrivateKey()}>Import</Button>
+    {#if error !== ""}
+      <p>{error}</p>
+    {/if}
+  </details>
+
   <h3>NIP19</h3>
   <p>
     nsec: <code>
