@@ -1,0 +1,15 @@
+diff --git a/node_modules/nostr-tools/package.json b/node_modules/nostr-tools/package.json
+index 73be3b2..6eb8852 100644
+--- a/node_modules/nostr-tools/package.json
++++ b/node_modules/nostr-tools/package.json
+@@ -6,8 +6,8 @@
+     "type": "git",
+     "url": "https://github.com/fiatjaf/nostr-tools.git"
+   },
+-  "main": "lib/nostr.cjs.js",
+-  "module": "lib/nostr.esm.js",
++  "type": "module",
++  "main": "lib/nostr.esm.js",
+   "dependencies": {
+     "@noble/hashes": "1.0.0",
+     "@noble/secp256k1": "^1.7.1",
