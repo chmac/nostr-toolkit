@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Material Icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <!-- Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"
+    />
+    <!-- Roboto Mono -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono"
+    />
+    <!-- SMUI Styles -->
+    <link rel="stylesheet" href="/smui.css" />
+    <meta http-equiv="content-security-policy" content="">
+		<link href="./_app/immutable/assets/_layout-31e47d28.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/_page-00341182.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/start-37899b67.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-3cc77633.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-7d089985.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-a4be45ef.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/classAdderBuilder-613bd1e9.js">
+		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.ts-e607ed30.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-73540493.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/_page.svelte-fd51f18e.js">
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">
+
+
+
+
+<header class="mdc-top-app-bar mdc-top-app-bar--fixed" style=""><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <span class="mdc-top-app-bar__title">Nostr Toolkit</span>
+</section></div>
+</header>
+
+<div class="container svelte-faxcmn"><h2>Keys</h2>
+<details><summary>Private key related operations</summary>
+  <p>Private key: <code></code></p>
+  <p>Public key: <code></code></p>
+  <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Generate key</button>
+
+  <details><summary>Import an existing private key</summary>
+    <label class="mdc-text-field smui-text-field--standard" style="width: 100%">
+      <span class="mdc-floating-label" style="">Private key</span>
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="text" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+<div class="mdc-text-field-helper-line"><div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true" id="SMUI-textfield-helper-text-0" slot="helper">Invalid private key, unable to import.
+      
+</div></div>
+    <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Import</button>
+    </details>
+
+  <h3>NIP19</h3>
+  <p>nsec: <code></code></p>
+  <p>npub: <code></code></p></details>
+
+<details><summary>Public key related operations</summary>
+  <form><label class="mdc-text-field smui-text-field--standard" style="width: 100%">
+      <span class="mdc-floating-label" style="">Public key</span>
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="text" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+
+    <button class="mdc-button" style="" type="submit"><div class="mdc-button__ripple"></div>
+  Convert</button></form>
+  <p>Converted public key: </p></details>
+  <h2>NIP05</h2>
+<details><summary>Fetch NIP05 profiles</summary>
+  <form><label class="mdc-text-field smui-text-field--standard" style="width: 100%">
+      <span class="mdc-floating-label" style="">Address</span>
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="text" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+
+    <button class="mdc-button" style="" type="submit"><div class="mdc-button__ripple"></div>
+  Fetch</button></form>
+  <pre></pre></details>
+  <h2>NIP11</h2>
+<details><summary>Fetch NIP11 info for relays</summary>
+  <form><label class="mdc-text-field smui-text-field--standard mdc-text-field--no-label" style="width: 100%">
+      
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="url" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+
+    <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Fetch relay info</button></form>
+  <pre></pre></details>
+  <h2>Relays</h2>
+<details><summary>Connect to relays and monitor notices and errors</summary>
+  <form><label class="mdc-text-field smui-text-field--standard mdc-text-field--no-label" style="width: 100%">
+      
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="url" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+
+    <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Connect</button></form>
+  <p>Connecting: false</p>
+  <p>Connected: false</p>
+  <h3>Notices</h3>
+  <ul><li>No notices</li></ul>
+  <h3>Errors</h3>
+  <ul><li>No errors</li></ul></details>
+  <h2>Subscribe</h2>
+<details><summary>Subscribe to events of various kinds (connect to a relay first)</summary>
+
+  <h3>Firehose</h3>
+  <p>Subscribe to all events from this relay (stops after 30 seconds or 30
+    events)
+  </p>
+  <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Start firehose</button>
+
+  <h3>Profile</h3>
+  <form><label class="mdc-text-field smui-text-field--standard" style="width: 100%">
+      <span class="mdc-floating-label" style="">Enter a public key, prefix, or npub</span>
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="text" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+
+    <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Subscribe to profile</button></form>
+  
+  
+
+  <h3>Kind</h3>
+  <form><label class="mdc-text-field smui-text-field--standard" style="">
+      <span class="mdc-floating-label" style="">Kind to subscribe to</span>
+    
+    
+    
+    
+      
+      <input class="mdc-text-field__input" type="text" placeholder=" " value="">
+      
+      
+    
+    <div class="mdc-line-ripple" style=""></div></label>
+
+    <button class="mdc-button" style=""><div class="mdc-button__ripple"></div>
+  Subscribe</button></form>
+
+  <h3>Events</h3>
+  <p>Actively subscribed: false</p>
+  <p>Got EOSE: false</p>
+  <ul><li>No events</li></ul></details>
+  <h2>Publish</h2>
+<details><summary>Publish events to relays (connect to a relay first)</summary>
+  <p>Please add a private key first</p>
+  <p></p></details>
+</div>
+
+
+		<script type="module" data-sveltekit-hydrate="jtqf1p">
+			import { start } from "./_app/immutable/start-37899b67.js";
+
+			start({
+				assets: "",
+				env: {},
+				target: document.querySelector('[data-sveltekit-hydrate="jtqf1p"]').parentNode,
+				version: "1676558461269",
+				hydrate: {
+					node_ids: [0, 2],
+					data: [null,null],
+					form: null,
+					error: null
+				}
+			});
+		</script>
+	</div>
+  </body>
+</html>
