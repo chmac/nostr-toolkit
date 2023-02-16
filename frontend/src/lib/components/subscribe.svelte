@@ -105,6 +105,7 @@
   <summary
     >Subscribe to events of various kinds (connect to a relay first)</summary
   >
+
   <h3>Firehose</h3>
   <p>
     Subscribe to all events from this relay (stops after 30 seconds or 30
@@ -144,11 +145,13 @@
       subscribeToKind();
     }}
   >
-    <Textfield bind:value={kind} />
-    <Button>Subscribe for this kind</Button>
+    <Textfield bind:value={kind} label="Kind to subscribe to" />
+    <Button>Subscribe</Button>
   </form>
 
   <h3>Events</h3>
+  <p>Actively subscribed: {subscribed}</p>
+  <p>Got EOSE: {gotEose}</p>
   <ul>
     {#each events as event}
       <li><pre>{JSON.stringify(event, null, 2)}</pre></li>
