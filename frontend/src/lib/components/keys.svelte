@@ -32,6 +32,19 @@
     }
     privateKeyInputValueInvalid = true;
   };
+
+  let publicKeyInputValue = "";
+  let publicKeyInputValueConverted = "";
+  const convertPublicKey = () => {
+    if (publicKeyInputValue.startsWith("npub")) {
+      const { data } = nip19.decode(publicKeyInputValue);
+      publicKeyInputValueConverted = data as string;
+    } else {
+      if (publicKeyInputValue.length === 64) {
+        publicKeyInputValueConverted = nip19.npubEncode(publicKeyInputValue);
+      }
+    }
+  };
 </script>
 
 <h2>Keys</h2>
@@ -75,4 +88,18 @@
       {npub}
     </code>
   </p>
+</details>
+
+<details>
+  <summary>Public key related operations</summary>
+  <form on:submit|preventDefault={convertPublicKey}>
+    <Textfield
+      type="text"
+      label="Public key"
+      style="width: 100%"
+      bind:value={publicKeyInputValue}
+    />
+    <Button type="submit">Convert</Button>
+  </form>
+  <p>Converted public key: {publicKeyInputValueConverted}</p>
 </details>
