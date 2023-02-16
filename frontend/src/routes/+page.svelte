@@ -2,6 +2,7 @@
   import Keys from "../lib/components/keys.svelte";
   import Nip11 from "../lib/components/nip11.svelte";
   import Nip5 from "../lib/components/nip5.svelte";
+  import Publish from "../lib/components/publish.svelte";
   import Relays from "../lib/components/relays.svelte";
   import Subscribe from "../lib/components/subscribe.svelte";
 </script>
@@ -12,6 +13,7 @@
   <Nip11 />
   <Relays />
   <Subscribe />
+  <Publish />
 </div>
 
 <style>

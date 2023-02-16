@@ -7,33 +7,50 @@
   let relay: Relay;
   relayStore.subscribe((r) => (relay = r));
 
-  let publicKey = "";
-  let subscription: Sub;
+  let subscription: Sub | undefined;
   let subscribed = false;
   let events: Event[] = [];
   let gotEose = false;
+  let timerId: NodeJS.Timeout | undefined;
 
-  let profileEvent: Event;
+  const unsubscribe = () => {
+    if (typeof subscription !== "undefined") {
+      subscription.unsub();
+    }
+    subscribed = false;
+    gotEose = false;
+  };
+
+  const resetState = () => {
+    unsubscribe();
+    subscription = undefined;
+    if (typeof timerId !== "undefined") {
+      clearTimeout(timerId);
+    }
+  };
+
+  const startTimeout = () => {
+    timerId = setTimeout(unsubscribe, 30_000);
+  };
 
   const startFirehose = () => {
+    resetState();
     subscription = relay.sub([{ since: Math.floor(Date.now() / 1_000) }]);
     subscribed = true;
     subscription.on("event", (event: Event) => {
       events = [...events, event];
       if (events.length >= 30) {
-        subscription.unsub();
-        subscribed = false;
+        unsubscribe();
       }
     });
     subscription.on("eose", () => {
       gotEose = true;
     });
-    setTimeout(() => {
-      if (subscribed) {
-        subscription.unsub();
-      }
-    }, 30_000);
+    startTimeout();
   };
+
+  let publicKey = "";
+  let profileEvent: Event;
 
   const subscribeToProfile = () => {
     if (typeof relay === "undefined") {
@@ -55,6 +72,26 @@
       profileSubscription.unsub();
     });
   };
+
+  let kind = "";
+
+  const subscribeToKind = () => {
+    if (kind.length === 0 || typeof relay === "undefined") {
+      return;
+    }
+    resetState();
+    subscription = relay.sub([{ kinds: [parseInt(kind)] }]);
+    subscription.on("event", (event: Event) => {
+      events = [...events, event];
+      if (events.length >= 30) {
+        unsubscribe();
+      }
+    });
+    subscription.on("eose", () => {
+      gotEose = true;
+    });
+    startTimeout();
+  };
 </script>
 
 <h2>Subscribe</h2>
@@ -67,9 +104,10 @@
   {#if !subscribed}
     <Button on:click={() => startFirehose()}>Start firehose</Button>
   {:else}
-    <Button on:click={() => subscription.unsub()}>Stop firehose</Button>
+    <Button on:click={() => unsubscribe()}>Stop firehose</Button>
   {/if}
-  <h3>Profiles</h3>
+
+  <h3>Profile</h3>
   <form
     on:submit|preventDefault={() => {
       subscribeToProfile();
@@ -83,6 +121,19 @@
     <p>Content unpacked</p>
     <pre>{JSON.stringify(JSON.parse(profileEvent.content), null, 2)}</pre>
   {/if}
+  {#if gotEose && typeof profileEvent === "undefined"}<p>
+      No profile found
+    </p>{/if}
+
+  <h3>Kind</h3>
+  <form
+    on:submit|preventDefault={() => {
+      subscribeToKind();
+    }}
+  >
+    <Textfield bind:value={kind} />
+    <Button>Subscribe for this kind</Button>
+  </form>
 
   <h3>Events</h3>
   <ul>
