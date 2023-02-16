@@ -8,7 +8,7 @@
 
   const fetchNip5 = async () => {
     const result = await nip05.queryProfile(nip5Address);
-    output = JSON.stringify(result);
+    output = JSON.stringify(result, null, 2);
   };
 </script>
 
@@ -25,7 +25,5 @@
     />
     <Button type="submit">Fetch</Button>
   </form>
-  <p>
-    <code>{output}</code>
-  </p>
+  <pre>{output}</pre>
 </details>
