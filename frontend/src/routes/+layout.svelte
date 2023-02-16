@@ -1,17 +1,17 @@
 <script lang="ts">
   import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
-  import IconButton from "@smui/icon-button";
-  import Menu from "@smui/menu";
+  // import IconButton from "@smui/icon-button";
+  // import Menu from "@smui/menu";
   import { Anchor } from "@smui/menu-surface";
   import List, { Item, Separator, Text } from "@smui/list";
 
-  let menu: Menu;
+  // let menu: Menu;
 </script>
 
 <TopAppBar variant="fixed">
   <Row>
     <Section>
-      <IconButton class="material-icons" on:click={() => menu.setOpen(true)}
+      <!-- <IconButton class="material-icons" on:click={() => menu.setOpen(true)}
         >menu</IconButton
       >
       <Menu bind:this={menu}>
@@ -29,7 +29,7 @@
             <Text>Menu item four</Text>
           </Item>
         </List>
-      </Menu>
+      </Menu> -->
       <Title>Nostr Toolkit</Title>
     </Section>
   </Row>
