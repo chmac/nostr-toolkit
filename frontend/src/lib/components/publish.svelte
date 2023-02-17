@@ -51,6 +51,7 @@
     publishing = true;
     const publication = $relayStore.publish(event);
     publication.on("failed", (message: string) => {
+      publishing = false;
       error = `#oPbGD5 Publishing failed with error: ${message}`;
     });
     publication.on("ok", () => {
