@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "prepare": "yarn smui-theme",
-    "smui-theme": "smui-theme compile static/smui.css -i src/theme",
-    "build": "vite build",
+    "prepare": "yarn build:smui-theme",
+    "build:smui-theme": "smui-theme compile static/smui.css -i src/theme",
+    "build:vite": "vite build",
+    "build": "yarn build:smui-theme && yarn build:vite",
     "preview": "vite preview",
     "test": "playwright test",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
