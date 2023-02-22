@@ -54,6 +54,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@sveltejs/adapter-cloudflare": "^2.0.2",
     "nostr-tools": "^1.4.1"
   }
 }
